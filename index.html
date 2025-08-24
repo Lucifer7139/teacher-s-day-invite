@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher's Day Invitation - Holy Crown School</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Crimson+Text:wght@400;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #fdf7f0 0%, #f8e8d8 50%, #f5d5c0 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating decorative elements */
+        .floating-decor {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .floating-decor:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            font-size: 2rem;
+            animation-delay: 0s;
+        }
+
+        .floating-decor:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            font-size: 1.5rem;
+            animation-delay: 2s;
+        }
+
+        .floating-decor:nth-child(3) {
+            bottom: 30%;
+            left: 8%;
+            font-size: 1.8rem;
+            animation-delay: 4s;
+        }
+
+        .floating-decor:nth-child(4) {
+            bottom: 20%;
+            right: 15%;
+            font-size: 1.3rem;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-screen.hide {
+            animation: fadeOut 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateY(-50px);
+                visibility: hidden;
+            }
+        }
+
+        .welcome-message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #8b4513;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: slideDown 1s ease-out;
+        }
+
+        .inspiring-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #a0522d;
+            font-style: italic;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            line-height: 1.6;
+            animation: slideDown 1s ease-out 0.3s both;
+        }
+
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #654321;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+            animation: slideUp 1s ease-out 0.6s both;
+        }
+
+        .read-button {
+            background: linear-gradient(45deg, #d4a574, #e6c79a);
+            color: #654321;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(212, 165, 116, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 1s ease-out 0.9s both;
+        }
+
+        .read-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .read-button:hover:before {
+            left: 100%;
+        }
+
+        .read-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(212, 165, 116, 0.6);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Invitation Screen */
+        .invitation-screen {
+            display: none;
+            min-height: 100vh;
+            padding: 2rem;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .invitation-screen.show {
+            display: flex;
+            animation: fadeInScale 1s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8) rotateY(15deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotateY(0deg);
+            }
+        }
+
+        .invitation-card {
+            background: linear-gradient(135deg, #fff9f0 0%, #faf5eb 100%);
+            max-width: 600px;
+            width: 100%;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.1),
+                0 0 0 1px rgba(212, 165, 116, 0.2),
+                inset 0 1px 0 rgba(255,255,255,0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .invitation-card:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(212, 165, 116, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(160, 82, 45, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .decorative-border {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #d4a574, #e6c79a, #d4a574) 1;
+            border-radius: 15px;
+            pointer-events: none;
+        }
+
+        .invitation-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dear-teacher {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #8b4513;
+            margin-bottom: 1rem;
+        }
+
+        .invitation-content {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #654321;
+            margin-bottom: 2rem;
+            text-align: justify;
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-details {
+            background: rgba(212, 165, 116, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 4px solid #d4a574;
+            position: relative;
+            z-index: 1;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            color: #654321;
+        }
+
+        .detail-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-item i {
+            color: #d4a574;
+            width: 25px;
+            margin-right: 10px;
+        }
+
+        .closing {
+            text-align: center;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .yours-sincerely {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            color: #a0522d;
+            margin-bottom: 0.5rem;
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #8b4513;
+            font-weight: 600;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.9), rgba(160, 82, 45, 0.9));
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .welcome-message {
+                font-size: 2rem;
+            }
+            
+            .inspiring-quote {
+                font-size: 1.1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .main-title {
+                font-size: 2.2rem;
+            }
+            
+            .invitation-card {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .dear-teacher {
+                font-size: 1.8rem;
+            }
+            
+            .invitation-content {
+                font-size: 1rem;
+            }
+            
+            .footer {
+                font-size: 0.8rem;
+                padding: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-message {
+                font-size: 1.7rem;
+            }
+            
+            .main-title {
+                font-size: 1.8rem;
+            }
+            
+            .invitation-card {
+                padding: 1.5rem;
+            }
+            
+            .read-button {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating decorative elements -->
+    <div class="floating-decor"><i class="fas fa-book"></i></div>
+    <div class="floating-decor"><i class="fas fa-graduation-cap"></i></div>
+    <div class="floating-decor"><i class="fas fa-apple-alt"></i></div>
+    <div class="floating-decor"><i class="fas fa-chalkboard-teacher"></i></div>
+
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-message">
+            Welcome to Our Special Celebration
+        </div>
+        
+        <div class="inspiring-quote">
+            "Teachers are the guiding stars of our lives, illuminating the path of knowledge and wisdom"
+        </div>
+        
+        <div class="main-title">
+            Invitation for Teacher's Day
+        </div>
+        
+        <button class="read-button" onclick="showInvitation()">
+            <i class="fas fa-envelope-open-text" style="margin-right: 8px;"></i>
+            Read
+        </button>
+    </div>
+
+    <!-- Invitation Screen -->
+    <div class="invitation-screen" id="invitationScreen">
+        <div class="invitation-card">
+            <div class="decorative-border"></div>
+            
+            <div class="invitation-header">
+                <div class="dear-teacher">Respected Teachers,</div>
+            </div>
+            
+            <div class="invitation-content">
+                With immense joy and gratitude, we warmly invite you to our celebration of Teacher's Day. This special occasion is our heartfelt tribute to the incredible educators who have shaped our minds, inspired our hearts, and guided us towards a brighter future.
+            </div>
+            
+            <div class="invitation-content">
+                Join us as we honor and celebrate the guiding lights of our lives – our beloved teachers. Your presence will make this celebration truly special and memorable.
+            </div>
+            
+            <div class="closing">
+                <div class="yours-sincerely">Yours sincerely,</div>
+                <div class="signature">Students of Classes 11 & 12</div>
+            </div>
+            
+            <div class="event-details">
+                <div class="detail-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span><strong>Date:</strong> 5th September</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span><strong>Venue:</strong> Holy Crown School, Masimpur</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <i class="fas fa-heart" style="color: #ffb3b3; margin-right: 5px;"></i>
+        Organized by Holy Crown School Students of Classes 11 and 12
+        <i class="fas fa-heart" style="color: #ffb3b3; margin-left: 5px;"></i>
+    </div>
+
+    <script>
+        function showInvitation() {
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const invitationScreen = document.getElementById('invitationScreen');
+            
+            // Add hide animation to welcome screen
+            welcomeScreen.classList.add('hide');
+            
+            // After animation completes, show invitation screen
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                invitationScreen.classList.add('show');
+            }, 800);
+        }
+
+        // Add some interactive hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const readButton = document.querySelector('.read-button');
+            
+            readButton.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            
+            readButton.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
